@@ -1,16 +1,19 @@
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { CartCounter, cartSelectors, ProductCartCounter } from 'features/cart';
+import { ReviewList } from 'widgets/ReviewList/ui/ReviewList';
+
+import { CartCounter, ProductCartCounter } from 'features/cart';
+import { LikeButton } from 'features/like-product';
+
 import truckSVG from 'shared/assets/icons/truck.svg';
 import qualitySVG from 'shared/assets/icons/quality.svg';
 import { Rating } from 'shared/ui/Rating';
 import { ButtonBack } from 'shared/ui/ButtonBack';
-import { LikeButton } from 'shared/ui/LikeButton';
-import { ReviewList } from 'widgets/ReviewList/ui/ReviewList';
 import { WithProtection } from 'shared/store/HOCs/WithProtection';
 import { useGetProductQuery } from 'shared/store/api/productsApi';
 import { useAppSelector } from 'shared/store/utils';
+import { cartSelectors } from 'shared/store/slices/cart';
 
 import s from './ProductPage.module.css';
 

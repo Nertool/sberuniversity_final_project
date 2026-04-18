@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
-import { cartSelectors } from 'features/cart';
 import { useAppSelector } from 'shared/store/utils';
+import { cartSelectors } from 'shared/store/slices/cart';
 
 import { CartItem } from '../../CartItem';
 

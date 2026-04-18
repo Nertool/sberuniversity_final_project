@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+
 import { Search } from 'features/search';
-import { userSelectors } from 'features/auth';
-import { cartSelectors } from 'features/cart';
 
 import { Logo } from 'shared/ui/Logo';
 import { useAppSelector } from 'shared/store/utils';
 import { isLiked } from 'shared/utils';
 import { useProducts } from 'shared/store/hooks/useProducts';
+import { userSelectors } from 'shared/store/slices/user';
+import { cartSelectors } from 'shared/store/slices/cart';
 
 import s from './Header.module.css';
 

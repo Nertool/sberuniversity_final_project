@@ -2,8 +2,9 @@ import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { Header } from 'widgets/Header';
-import { Sort } from 'shared/ui/Sort';
 import { Footer } from 'widgets/Footer';
+
+import { Sort } from 'features/sort-products';
 
 import './styles/normalize.css';
 import './styles/styles.css';
