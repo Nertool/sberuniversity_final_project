@@ -1,5 +1,6 @@
-import s from './Search.module.css';
 import { useProductsSearchForm } from '../hooks/usePostsSearchForm';
+
+import s from './Search.module.css';
 
 export const Search = () => {
 	const { searchValue, setSearchValue } = useProductsSearchForm();

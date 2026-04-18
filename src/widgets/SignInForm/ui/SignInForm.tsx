@@ -1,25 +1,25 @@
 import { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
 	Avatar,
 	Box,
 	Container,
 	Link,
-	TextField,
 	Typography,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { toast } from 'react-toastify';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useSignInMutation } from 'shared/store/api/authApi';
+import { userActions } from 'shared/store/slices/user';
+import { getMessageFromError } from 'shared/utils';
+import { Input } from 'shared/ui/Input';
+import { LoadingButton } from 'shared/ui/LoadingButton';
 import { SignInFormValues } from '../utils/types';
 import { signInFormSchema } from '../utils/validator';
-import { useSignInMutation } from '../../../shared/store/api/authApi';
-import { userActions } from '../../../shared/store/slices/user';
-import { getMessageFromError } from '../../../shared/utils';
 
 export const SignInForm: FC = () => {
 	const dispatch = useDispatch();
@@ -106,7 +106,7 @@ export const SignInForm: FC = () => {
 						name='email'
 						control={control}
 						render={({ field }) => (
-							<TextField
+							<Input
 								margin='normal'
 								label='Email Address'
 								type='email'
@@ -123,7 +123,7 @@ export const SignInForm: FC = () => {
 						name='password'
 						control={control}
 						render={({ field }) => (
-							<TextField
+							<Input
 								label='Password'
 								type='password'
 								error={!!errors.password?.message}
