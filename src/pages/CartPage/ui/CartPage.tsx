@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 import { cartSelectors } from 'features/cart';
 import { useAppSelector } from 'shared/store/utils';
+
 import { CartList } from './CartList';
 import { CartAmount } from './CartAmount';
 
@@ -20,8 +21,8 @@ export const CartPage = () => {
         <div className={classNames(s['cart-title'])}>
           <span>{products.length}</span> в корзине
         </div>
-        <CartList products={products} />
-        <CartAmount products={products} />
+        <CartList />
+        <CartAmount />
       </div>
     </div>
   );
