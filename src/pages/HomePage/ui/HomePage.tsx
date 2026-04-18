@@ -7,18 +7,18 @@ import { useProducts } from 'shared/store/hooks/useProducts';
 const CardListWithQuery = WithQuery(CardList);
 
 export const HomePage = WithProtection(() => {
-	const { products, isLoading, isError, error } = useProducts();
+  const { products, isLoading, isError, error } = useProducts();
 
-	return (
-		<>
-			<CardListWithQuery
-				title='Лакомства'
-				isLoading={isLoading}
-				isError={isError}
-				products={products}
-				error={error}
-			/>
-			<LoadMore />
-		</>
-	);
+  return (
+    <>
+      <CardListWithQuery
+        title="Лакомства"
+        isLoading={isLoading}
+        isError={isError}
+        products={products}
+        error={error}
+      />
+      <LoadMore />
+    </>
+  );
 });

@@ -1,5 +1,6 @@
 .idea
 .husky
+.env
 
 node_modules
 dist

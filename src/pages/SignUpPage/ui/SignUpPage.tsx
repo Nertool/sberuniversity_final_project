@@ -1,6 +1,6 @@
-import { WithProtection } from '../../../shared/store/HOCs/WithProtection';
-import { SignUpForm } from '../../../widgets/SignUpForm';
+import { SignUpForm } from 'features/auth';
+import { WithProtection } from 'shared/store/HOCs/WithProtection';
 
 export const SignUpPage = WithProtection(() => {
-	return <SignUpForm />;
+  return <SignUpForm />;
 });
