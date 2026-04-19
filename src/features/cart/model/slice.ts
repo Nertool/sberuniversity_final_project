@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
   initialState: createInitState(),
   reducers: {
     addCartProduct(state, action: PayloadAction<CartProduct>) {
-      state.products = [...state.products, action.payload];
+      state.products.push(action.payload);
     },
     deleteCartProduct(state, action: PayloadAction<CartProduct['id']>) {
       state.products = state.products.filter(p => p.id !== action.payload);
@@ -22,10 +22,11 @@ export const cartSlice = createSlice({
       state,
       action: PayloadAction<Pick<CartProduct, 'id' | 'count'>>,
     ) {
-      state.products = state.products.map(p => ({
-        ...p,
-        count: p.id === action.payload.id ? action.payload.count : p.count,
-      }));
+      const product = state.products.find(p => p.id === action.payload.id);
+
+      if (product) {
+        product.count = action.payload.count;
+      }
     },
   },
   selectors: {

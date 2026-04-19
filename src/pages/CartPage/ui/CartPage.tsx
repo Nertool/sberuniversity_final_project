@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import classNames from 'classnames';
 
 import { cartSelectors } from 'features/cart';
@@ -9,7 +10,7 @@ import { CartAmount } from './CartAmount';
 
 import s from './CartPage.module.css';
 
-export const CartPage = () => {
+export const CartPage = memo(() => {
   const products = useAppSelector(cartSelectors.getCartProducts);
 
   if (!products.length) {
@@ -27,4 +28,4 @@ export const CartPage = () => {
       </div>
     </div>
   );
-};
+});

@@ -1,3 +1,5 @@
+import { memo, useMemo } from 'react';
+
 import { Card } from './Card';
 
 import s from './CardList.module.css';
@@ -7,7 +9,12 @@ type CardListProps = {
   products: Product[];
 };
 
-export const CardList = ({ title, products }: CardListProps) => {
+export const CardList = memo(({ title, products }: CardListProps) => {
+  const productCards = useMemo(
+    () => products.map(product => <Card key={product.id} product={product} />),
+    [products],
+  );
+
   if (!products.length) {
     return <h1 className="header-title">Товар не найден</h1>;
   }
@@ -17,11 +24,7 @@ export const CardList = ({ title, products }: CardListProps) => {
       <div className={s['card-list__header']}>
         <h2 className={s['card-list__title']}>{title}</h2>
       </div>
-      <div className={s['card-list__items']}>
-        {products.map(product => (
-          <Card key={product.id} product={product} />
-        ))}
-      </div>
+      <div className={s['card-list__items']}>{productCards}</div>
     </div>
   );
-};
+});

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import classNames from 'classnames';
 
 import { useCartCount } from '../model/useCartCount';
@@ -8,7 +9,7 @@ type TCartCounter = {
   productId: string;
 };
 
-export const CartCounter = ({ productId }: TCartCounter) => {
+export const CartCounter = memo(({ productId }: TCartCounter) => {
   const { count, stock, handleSetCount, handleIncrement, handleDecrement } =
     useCartCount(productId);
 
@@ -37,4 +38,4 @@ export const CartCounter = ({ productId }: TCartCounter) => {
       </div>
     </>
   );
-};
+});

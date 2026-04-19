@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { userSelectors } from 'features/auth';
@@ -14,6 +15,8 @@ export const useProducts = () => {
     productsSelectors.getProductsState,
   );
 
+  const userId = useAppSelector(userSelectors.getUser)?.id;
+
   const isFavoritesPage = pathname === '/favorites';
   const { isLoading, isError, error, data, isFetching } = useGetProductsQuery({
     searchText,
@@ -22,13 +25,15 @@ export const useProducts = () => {
     perPage: isFavoritesPage ? undefined : perPage,
   });
 
-  let products = data?.products || [];
+  const products = useMemo(() => {
+    const baseProducts = data?.products || [];
 
-  const user = useAppSelector(userSelectors.getUser);
+    if (!isFavoritesPage) {
+      return baseProducts;
+    }
 
-  if (isFavoritesPage) {
-    products = products.filter(product => isLiked(product.likes, user?.id));
-  }
+    return baseProducts.filter(product => isLiked(product.likes, userId));
+  }, [data?.products, isFavoritesPage, userId]);
 
   const productsCount = data?.length || 0;
 

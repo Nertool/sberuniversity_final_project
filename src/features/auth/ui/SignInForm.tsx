@@ -33,8 +33,8 @@ export const SignInForm: FC = () => {
     // с помощью generic подсказываем react-hook-form, какие поля содержит наша форма
   } = useForm<SignInFormValues>({
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'kokin.m92@gmail.com',
+      password: '123123123',
     },
     // react-hook-form умеет работать со многими библиотеками
     // валидации, мы используем yup

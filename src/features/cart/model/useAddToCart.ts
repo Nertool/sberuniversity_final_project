@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { useAppDispatch } from 'shared/store/utils';
 
 import { cartActions } from './slice';
@@ -5,9 +7,12 @@ import { cartActions } from './slice';
 export const useAddToCart = () => {
   const dispatch = useAppDispatch();
 
-  const addProductToCart = (cartProduct: CartProduct) => {
-    dispatch(cartActions.addCartProduct(cartProduct));
-  };
+  const addProductToCart = useCallback(
+    (cartProduct: CartProduct) => {
+      dispatch(cartActions.addCartProduct(cartProduct));
+    },
+    [dispatch],
+  );
 
   return { addProductToCart };
 };

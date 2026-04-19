@@ -1,25 +1,27 @@
+import { memo, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 
 import { cartSelectors } from 'features/cart';
 
 import { useAppSelector } from 'shared/store/utils';
 
-import s from '../../CartPage.module.css';
+import s from './CartPage.module.css';
 
-export const CartAmount = () => {
+export const CartAmount = memo(() => {
   const products = useAppSelector(cartSelectors.getCartProducts);
 
-  const allPrice = products.reduce((acc, p) => p.price * p.count + acc, 0);
-
-  const allDiscount = products.reduce(
-    (acc, p) => p.discount * p.count + acc,
-    0,
+  const { allDiscount, allPrice, order } = useMemo(
+    () => ({
+      allPrice: products.reduce((acc, p) => p.price * p.count + acc, 0),
+      allDiscount: products.reduce((acc, p) => p.discount * p.count + acc, 0),
+      order: products.map(p => ({ id: p.id, count: p.count })),
+    }),
+    [products],
   );
 
-  const handleSubmitCart = () => {
-    const order = products.map(p => ({ id: p.id, count: p.count }));
+  const handleSubmitCart = useCallback(() => {
     console.log('Отправка заказа на сервер: ', JSON.stringify(order, null, 2));
-  };
+  }, [order]);
 
   return (
     <div className={classNames(s['cart-amount'])}>
@@ -67,4 +69,4 @@ export const CartAmount = () => {
       </button>
     </div>
   );
-};
+});

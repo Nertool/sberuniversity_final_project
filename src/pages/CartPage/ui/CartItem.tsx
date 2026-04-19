@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
@@ -6,19 +7,19 @@ import { CartCounter, cartActions } from 'features/cart';
 
 import { ReactComponent as TrashIcon } from 'shared/assets/icons/trash.svg';
 
-import s from '../../CartPage.module.css';
+import s from './CartPage.module.css';
 
 type CartItemProps = {
   product: CartProduct;
 };
 
-export const CartItem = ({ product }: CartItemProps) => {
+export const CartItem = memo(({ product }: CartItemProps) => {
   const dispatch = useDispatch();
   const { id, name, images, price, discount } = product;
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     dispatch(cartActions.deleteCartProduct(id));
-  };
+  }, [dispatch, id]);
 
   return (
     <div className={classNames(s['cart-item'])}>
@@ -62,4 +63,4 @@ export const CartItem = ({ product }: CartItemProps) => {
       </div>
     </div>
   );
-};
+});

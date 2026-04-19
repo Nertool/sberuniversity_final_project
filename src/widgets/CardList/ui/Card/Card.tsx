@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
@@ -13,11 +14,18 @@ type CardProps = {
   product: Product;
 };
 
-export const Card = ({ product }: CardProps) => {
+export const Card = memo(({ product }: CardProps) => {
   const { discount, price, name, tags, id, images } = product;
-  const cartProducts = useAppSelector(cartSelectors.getCartProducts);
-  const isProductInCart = cartProducts.some(p => p.id === id);
+
   const { addProductToCart } = useAddToCart();
+
+  const isProductInCart = useAppSelector(state =>
+    cartSelectors.getCartProducts(state).some(p => p.id === id),
+  );
+
+  const handleAddToCart = useCallback(() => {
+    addProductToCart({ ...product, count: 1 });
+  }, [addProductToCart, product]);
 
   return (
     <article className={s['card']}>
@@ -59,7 +67,7 @@ export const Card = ({ product }: CardProps) => {
         <CartCounter productId={id} />
       ) : (
         <button
-          onClick={() => addProductToCart({ ...product, count: 1 })}
+          onClick={handleAddToCart}
           disabled={isProductInCart}
           className={classNames(
             s['card__cart'],
@@ -72,4 +80,4 @@ export const Card = ({ product }: CardProps) => {
       )}
     </article>
   );
-};
+});
