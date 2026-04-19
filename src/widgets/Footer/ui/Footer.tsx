@@ -131,7 +131,7 @@ export const Footer = () => {
           </p>
           <a
             className={classNames(s['contacts__tel'], s['contacts__link'])}
-            href="tel:89177172179"
+            href="tel:8999000000"
           >
             8 (999) 00-00-00
           </a>
