@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -19,6 +19,7 @@ import { formSchema } from '../model/validator';
 
 export const SignUpForm: FC = () => {
   const dispatch = useDispatch();
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
   // navigate поможет сделать редирект в нужный момент
   const navigate = useNavigate();
   // Из хука useSignUpMutation (был получен путем автогенерации)
@@ -40,6 +41,10 @@ export const SignUpForm: FC = () => {
     // валидации, мы используем yup
     resolver: yupResolver(formSchema),
   });
+
+  useEffect(() => {
+    emailInputRef.current?.focus();
+  }, []);
 
   const submitHandler: SubmitHandler<SignUpFormValues> = async values => {
     try {
@@ -100,6 +105,11 @@ export const SignUpForm: FC = () => {
             control={control}
             render={({ field }) => (
               <Input
+                {...field}
+                ref={element => {
+                  emailInputRef.current = element;
+                  field.ref(element);
+                }}
                 margin="normal"
                 label="Email Address"
                 type="email"
@@ -108,7 +118,6 @@ export const SignUpForm: FC = () => {
                 autoComplete="email"
                 error={!!errors.email?.message}
                 helperText={errors.email?.message}
-                {...field}
               />
             )}
           />
@@ -124,7 +133,11 @@ export const SignUpForm: FC = () => {
                 margin="normal"
                 fullWidth
                 required
-                {...field}
+                name={field.name}
+                value={field.value}
+                onBlur={field.onBlur}
+                onChange={field.onChange}
+                ref={field.ref}
               />
             )}
           />

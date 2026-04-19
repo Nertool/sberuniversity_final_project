@@ -17,6 +17,7 @@ export const Footer = () => {
     isOpen: isFeedbackModalOpen,
     open: handleOpenFeedbackModal,
     close: handleCloseFeedbackModal,
+    incrementCounter,
   } = useFeedbackModal();
 
   return (
@@ -129,6 +130,13 @@ export const Footer = () => {
             Напишите нам на почту или позвоните, если нужна помощь с заказом,
             оплатой или доставкой.
           </p>
+          <button
+            type="button"
+            className={s['feedback-modal__button']}
+            onClick={incrementCounter}
+          >
+            Увеличить счетчик
+          </button>
           <a
             className={classNames(s['contacts__tel'], s['contacts__link'])}
             href="tel:8999000000"

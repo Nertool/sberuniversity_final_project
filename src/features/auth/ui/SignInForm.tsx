@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ import { formSchema } from '../model/validator';
 export const SignInForm: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
   // navigate поможет сделать редирект в нужный момент
   const navigate = useNavigate();
   // Из хука useSignUpMutation (был получен путем автогенерации)
@@ -40,6 +41,10 @@ export const SignInForm: FC = () => {
     // валидации, мы используем yup
     resolver: yupResolver(formSchema),
   });
+
+  useEffect(() => {
+    emailInputRef.current?.focus();
+  }, []);
 
   const submitHandler: SubmitHandler<SignInFormValues> = async values => {
     try {
@@ -104,6 +109,8 @@ export const SignInForm: FC = () => {
             control={control}
             render={({ field }) => (
               <Input
+                {...field}
+                ref={emailInputRef}
                 margin="normal"
                 label="Email Address"
                 type="email"
@@ -112,7 +119,6 @@ export const SignInForm: FC = () => {
                 autoComplete="email"
                 error={!!errors.email?.message}
                 helperText={errors.email?.message}
-                {...field}
               />
             )}
           />

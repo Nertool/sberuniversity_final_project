@@ -82,6 +82,23 @@
 	line-height: 22px;
 }
 
+.feedback-modal__button {
+	align-self: flex-start;
+	padding: 10px 16px;
+	color: #1a1a1a;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 18px;
+	cursor: pointer;
+	background: #ffe44d;
+	border: none;
+	border-radius: 12px;
+}
+
+.feedback-modal__button:hover {
+	background: #ffd100;
+}
+
 .contacts__title {
 	margin-top: 0;
 	margin-bottom: 12px;
