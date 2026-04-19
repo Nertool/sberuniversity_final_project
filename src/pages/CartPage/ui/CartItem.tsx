@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { CartCounter, cartActions } from 'features/cart';
 
-import { ReactComponent as TrashIcon } from 'shared/assets/icons/trash.svg';
+import TrashIcon from 'shared/assets/icons/trash.svg?react';
 
 import s from './CartPage.module.css';
 

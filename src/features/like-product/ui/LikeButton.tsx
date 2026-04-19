@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { userSelectors } from 'features/auth';
 
-import { ReactComponent as LikeSvg } from 'shared/assets/icons/like.svg';
+import LikeSvg from 'shared/assets/icons/like.svg?react';
 import { useAppSelector } from 'shared/store/utils';
 import {
   useSetLikeProductMutation,

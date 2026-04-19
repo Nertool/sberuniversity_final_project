@@ -81,7 +81,7 @@ export class Api {
   }
 }
 
-const config = {
+export const config = {
   apiUrl: 'https://api.v2.react-learning.ru',
   apiToken:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNseW9mNXFyZDAwMDhuZW9zdXdrNHk3aXIiLCJlbWFpbCI6ImVhYW1vc292QGdtYWlsLmNvbSIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzIxMTM0Njk1LCJleHAiOjE3MjExMzUyOTV9.fOgTu9DEX24rHY6ZSl7IiqmqzCNpLZIrOm34xJLL2aI',
