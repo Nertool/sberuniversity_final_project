@@ -40,6 +40,14 @@
 	transition: 0.2s ease-in-out;
 }
 
+.menu-bottom__button {
+	padding: 0;
+	text-align: left;
+	cursor: pointer;
+	background: transparent;
+	border: none;
+}
+
 .menu-bottom__item:hover {
 	color: #7b8e98;
 }
@@ -51,6 +59,27 @@
 .contacts {
 	display: flex;
 	flex-direction: column;
+}
+
+.feedback-modal {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.feedback-modal__title {
+	margin: 0;
+	color: #1a1a1a;
+	font-weight: 800;
+	font-size: 24px;
+	line-height: 28px;
+}
+
+.feedback-modal__text {
+	margin: 0;
+	color: #4f4f4f;
+	font-size: 15px;
+	line-height: 22px;
 }
 
 .contacts__title {
