@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 
-import { useAddToCart } from 'features/cart';
-import { useProductCartCount } from '../model/useProductCartCount';
+import { useAddToCart, useProductCartCount } from 'features/cart';
 
 import s from './ProductCartCounter.module.css';
 
@@ -10,7 +9,8 @@ type ProductCartCounterProps = {
 };
 
 export const ProductCartCounter = ({ product }: ProductCartCounterProps) => {
-  const { count, handleCount, handleCountMinus, handleCountPlus } = useProductCartCount();
+  const { count, handleCount, handleCountMinus, handleCountPlus } =
+    useProductCartCount();
   const { addProductToCart } = useAddToCart();
 
   return (

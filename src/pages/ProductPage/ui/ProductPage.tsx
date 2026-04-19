@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { ReviewList } from 'widgets/ReviewList/ui/ReviewList';
 
-import { CartCounter, ProductCartCounter } from 'features/cart';
+import { CartCounter, cartSelectors, ProductCartCounter } from 'features/cart';
 import { LikeButton } from 'features/like-product';
 
 import truckSVG from 'shared/assets/icons/truck.svg';
@@ -13,7 +13,6 @@ import { ButtonBack } from 'shared/ui/ButtonBack';
 import { WithProtection } from 'shared/store/HOCs/WithProtection';
 import { useGetProductQuery } from 'shared/store/api/productsApi';
 import { useAppSelector } from 'shared/store/utils';
-import { cartSelectors } from 'shared/store/slices/cart';
 
 import s from './ProductPage.module.css';
 

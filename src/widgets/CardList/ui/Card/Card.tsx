@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
-import { CartCounter, useAddToCart } from 'features/cart';
+import { CartCounter, cartSelectors, useAddToCart } from 'features/cart';
 import { LikeButton } from 'features/like-product';
 
 import { useAppSelector } from 'shared/store/utils';
 import { Price } from 'shared/ui/Price';
-import { cartSelectors } from 'shared/store/slices/cart';
 
 import s from './Card.module.css';
 

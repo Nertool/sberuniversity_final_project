@@ -2,9 +2,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 
-import { CartCounter } from 'features/cart';
+import { CartCounter, cartActions } from 'features/cart';
 
-import { cartActions } from 'shared/store/slices/cart';
 import { ReactComponent as TrashIcon } from 'shared/assets/icons/trash.svg';
 
 import s from '../../CartPage.module.css';

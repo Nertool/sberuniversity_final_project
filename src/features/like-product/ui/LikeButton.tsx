@@ -1,9 +1,10 @@
 import { toast } from 'react-toastify';
 import classNames from 'classnames';
 
+import { userSelectors } from 'features/auth';
+
 import { ReactComponent as LikeSvg } from 'shared/assets/icons/like.svg';
 import { useAppSelector } from 'shared/store/utils';
-import { userSelectors } from 'shared/store/slices/user';
 import {
   useSetLikeProductMutation,
   useDeleteLikeProductMutation,

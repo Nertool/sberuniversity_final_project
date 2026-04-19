@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import { authApi } from 'features/auth/api/authApi';
-import { userSlice } from 'shared/store/slices/user';
-import { cartSlice } from 'shared/store/slices/cart';
+import { authApi, userSlice } from 'features/auth';
+import { cartSlice } from 'features/cart';
+
 import { productsSlice } from '../slices/products';
 import { productsApi } from '../api/productsApi';
 

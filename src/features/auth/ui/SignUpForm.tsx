@@ -8,9 +8,8 @@ import { Avatar, Box, Container, Link, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { useSignUpMutation } from 'features/auth/api/authApi';
+import { useSignUpMutation, userActions } from 'features/auth';
 
-import { userActions } from 'shared/store/slices/user';
 import { getMessageFromError } from 'shared/utils';
 import { Input } from 'shared/ui/Input';
 import { LoadingButton } from 'shared/ui/LoadingButton';

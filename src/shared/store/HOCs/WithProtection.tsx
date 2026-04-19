@@ -1,8 +1,9 @@
 import { ComponentType, FC } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
+import { userSelectors } from 'features/auth';
+
 import { useAppSelector } from '../utils';
-import { userSelectors } from '../slices/user';
 
 export const WithProtection = <P extends object>(
   WrappedComponent: ComponentType<P>,
