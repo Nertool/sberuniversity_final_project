@@ -1,83 +1,15 @@
-import { FC, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { FC } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Avatar, Box, Container, Link, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { yupResolver } from '@hookform/resolvers/yup';
 
-import { useSignInMutation, userActions } from 'features/auth';
-
-import { getMessageFromError } from 'shared/utils';
 import { Input } from 'shared/ui/Input';
 import { LoadingButton } from 'shared/ui/LoadingButton';
 
-import { SignInFormValues } from '../model/types';
-import { formSchema } from '../model/validator';
+import { useSignInForm } from 'features/auth/model/useSignInForm';
 
 export const SignInForm: FC = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const emailInputRef = useRef<HTMLInputElement | null>(null);
-  // navigate поможет сделать редирект в нужный момент
-  const navigate = useNavigate();
-  // Из хука useSignUpMutation (был получен путем автогенерации)
-  // достаем функцию, которая будет (регистрировать пользователя) делать POST-запрос к нашем серверу)
-  const [signInRequestFn] = useSignInMutation();
-  // инициализируем react-hook-form
-  const {
-    // control понадобиться, чтобы подружить react-hook-form и компоненты из MUI
-    control,
-    handleSubmit,
-    formState: { errors, isValid, isSubmitting, isSubmitted },
-    // с помощью generic подсказываем react-hook-form, какие поля содержит наша форма
-  } = useForm<SignInFormValues>({
-    defaultValues: {
-      email: 'kokin.m92@gmail.com',
-      password: '123123123',
-    },
-    // react-hook-form умеет работать со многими библиотеками
-    // валидации, мы используем yup
-    resolver: yupResolver(formSchema),
-  });
-
-  useEffect(() => {
-    emailInputRef.current?.focus();
-  }, []);
-
-  const submitHandler: SubmitHandler<SignInFormValues> = async values => {
-    try {
-      // метод "unwrap" помогает убрать вспомогательные обертки
-      // RTK, которые обрабатывают ошибки. Теперь ошибки обрабатываем мы
-      // с помощью конструкции try...catch. В этом случае нам так удобней
-      const response = await signInRequestFn(values).unwrap();
-
-      dispatch(userActions.setUser(response.user));
-      dispatch(
-        userActions.setAccessToken({ accessToken: response.accessToken }),
-      );
-
-      // Выводим уведомление, что пользователь успешно зарегался
-      // Есть куча библиотек для отображения "Тостеров". Мы используем
-      // react-toastify — https://github.com/fkhadra/react-toastify#readme
-      toast.success('Вы успешно авторизованы!');
-
-      if (location.state?.from) {
-        return navigate(location.state.from);
-      }
-
-      navigate('/');
-    } catch (error) {
-      // Если произошла ошибка, то выводим уведомление
-      toast.error(
-        getMessageFromError(
-          error,
-          'Не известная ошибка при авторизации пользователя',
-        ),
-      );
-    }
-  };
+  const { emailInputRef, formState, isPending, signInAction } = useSignInForm();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -95,56 +27,42 @@ export const SignInForm: FC = () => {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(submitHandler)}
-          noValidate
-          sx={{ my: 1 }}
-        >
-          {/* Чтобы подружить react-hook-form с MUI используем компонент Controller
-              смотри доку https://react-hook-form.com/get-started#IntegratingwithUIlibraries
-           */}
-          <Controller
+        <Box component="form" action={signInAction} noValidate sx={{ my: 1 }}>
+          <Input
             name="email"
-            control={control}
-            render={({ field }) => (
-              <Input
-                {...field}
-                ref={emailInputRef}
-                margin="normal"
-                label="Email Address"
-                type="email"
-                fullWidth
-                required
-                autoComplete="email"
-                error={!!errors.email?.message}
-                helperText={errors.email?.message}
-              />
-            )}
+            ref={emailInputRef}
+            margin="normal"
+            label="Email Address"
+            type="email"
+            fullWidth
+            required
+            autoComplete="email"
+            defaultValue={formState.values.email}
+            error={!!formState.errors.email}
+            helperText={formState.errors.email}
           />
-          <Controller
+          <Input
             name="password"
-            control={control}
-            render={({ field }) => (
-              <Input
-                label="Password"
-                type="password"
-                error={!!errors.password?.message}
-                helperText={errors.password?.message}
-                margin="normal"
-                fullWidth
-                required
-                {...field}
-              />
-            )}
+            label="Password"
+            type="password"
+            error={!!formState.errors.password}
+            helperText={formState.errors.password}
+            margin="normal"
+            fullWidth
+            required
+            defaultValue={formState.values.password}
           />
+
+          {formState.serverError && (
+            <Typography color="error" variant="body2">
+              {formState.serverError}
+            </Typography>
+          )}
 
           <LoadingButton
             type="submit"
-            // кнопка становится недоступной после первой валидации (если есть ошибки)
-            // или когда выполняется отправка (чтобы не дать пользователю отправить форму несколько раз)
-            disabled={isSubmitted && (!isValid || isSubmitting)}
-            loading={isSubmitting}
+            disabled={isPending}
+            loading={isPending}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
